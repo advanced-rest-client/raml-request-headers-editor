@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>raml-request-headers-editor demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../arc-demo-helpers/raml-demo-parser.html">
+  <link rel="import" href="../../raml-path-to-object/raml-path-to-object.html">
+  <link rel="import" href="../../raml-path-selector/raml-path-selector.html">
+  <link rel="import" href="../raml-request-headers-editor.html">
+  <style is="custom-style" include="demo-pages-shared-styles">
+  .vertical-section-container {
+    max-width: 600px;
+  }
+
+  raml-path-selector {
+    width: var(--raml-docs-path-selector-width, 256px);
+    min-width: var(--raml-docs-path-selector-width, 256px);
+    overflow: auto;
+    margin-right: 8px;
+  }
+
+  .content {
+    @apply(--layout-horizontal);
+  }
+
+  .demo-content {
+    max-width: var(--raml-docs-main-content-width, 700px);
+    @apply(--layout-flex);
+    @aaply(--raml-docs-main-content);
+  }
+
+  raml-headers-form {
+    margin-bottom: 40px;
+  }
+
+  output {
+    display: block;
+    white-space: pre-wrap;
+  }
+  </style>
+</head>
+
+<body unresolved>
+  <template is="dom-bind" id="app">
+    <div class="vertical-section-container centered">
+      <raml-demo-parser raml="{{raml}}" raml-file-url="https://raw.githubusercontent.com/advanced-rest-client/raml-example-api/master/api.raml"></raml-demo-parser>
+      <raml-path-to-object raml="[[raml]]" selected-path="{{selectedPath}}" selected-object="{{selectedObject}}" is-method="{{isMethod}}"></raml-path-to-object>
+    </div>
+    <div class="content">
+      <raml-path-selector raml="[[raml]]" selected-path="{{selectedPath}}"></raml-path-selector>
+      <section class="demo-content">
+        <template is="dom-if" if="[[isMethod]]">
+          <p hidden$="[[hasHeaders]]">Select a method with the headers defined in it.</p>
+          <raml-request-headers-editor raml-headers="[[selectedObject.headers]]" value="{{value}}" content-type="{{contentType}}" is-payload></raml-request-headers-editor>
+
+          <h4>Current headers value</h4>
+          <output>[[value]]</output>
+          <h4>Current content type</h4>
+          <output>[[contentType]]</output>
+        </template>
+        <template is="dom-if" if="[[!isMethod]]">
+          <p>Select a method with request body to see the headers demo.</p>
+        </template>
+      </section>
+    </div>
+  </template>
+  <script>
+  var $ = function(selector) {
+    return document.querySelector(selector);
+  };
+  (function(app) {
+    app.selectedObject = undefined;
+    app.isMethod = false;
+    app.observers = ['selectedObjectChanged(isMethod, selectedObject)'];
+    app.hasBody = false;
+    app.selectedObjectChanged = function(isMethod, selectedObject) {
+      if (!isMethod) {
+        return;
+      }
+      if (!selectedObject.headers || !selectedObject.headers.length) {
+        app.hasHeaders = false;
+      } else {
+        app.hasHeaders = true;
+      }
+    };
+  })($('#app'));
+  </script>
+</body>
+
+</html>
