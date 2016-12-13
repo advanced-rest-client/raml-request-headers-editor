@@ -13,6 +13,7 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-media-query/iron-media-query.html">
 <link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
@@ -75,12 +76,13 @@ Custom property | Description | Default
       margin-left: 20px;
     }
     </style>
+    <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
     <div class="content">
       <vertical-tabs selected="{{selected}}">
         <paper-tab>Headers form</paper-tab>
         <paper-tab>Raw headers</paper-tab>
         <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler">
-          <raml-headers-form value="{{value}}" raml-headers="[[ramlHeaders]]"></raml-headers-form>
+          <raml-headers-form value="{{value}}" narrow="[[narrow]]" narrow-width="[[narrowWidth]]" raml-headers="[[ramlHeaders]]"></raml-headers-form>
           <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
         </iron-pages>
       </vertical-tabs>
@@ -117,6 +119,20 @@ Custom property | Description | Default
         type: String,
         notify: true,
         observer: '_onContentTypeChanged'
+      },
+
+      /**
+       * If set it will renders the view in the narrow layout.
+       */
+      narrow: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      // A widith below which the `narrow` property will be set to true.
+      narrowWidth: {
+        type: String,
+        value: '768px'
       }
     },
 
