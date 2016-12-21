@@ -1,3 +1,13 @@
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.1.4...v0.1.5) (2016-12-21)
+
+
+### Fix
+
+* Fixed an issue with setting the headers value to wrond variable ([7d1b649c9043979677e9ac06fc69c7fd2f7c5a15](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/7d1b649c9043979677e9ac06fc69c7fd2f7c5a15))
+
+
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.1.3...v0.1.4) (2016-12-13)
 
