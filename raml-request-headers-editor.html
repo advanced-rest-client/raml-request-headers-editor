@@ -206,7 +206,7 @@ Custom property | Description | Default
       }
 
       var headers = this.headersToString(arr);
-      this.set('headers', headers);
+      this.set('value', headers);
       this.fire('content-type-changed', {
         'value': this.contentType
       });
