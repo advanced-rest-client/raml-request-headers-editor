@@ -53,9 +53,7 @@ Custom property | Description | Default
       display: block;
       position: relative;
 
-      --code-mirror-wrapper: {
-        /*border: 1px var(--main-section-border-color, rgba(0, 0, 0, 0.12)) solid;*/
-      }
+      @apply(--raml-request-headers-editor);
 
       --code-mirror-editor: {
         z-index: 0;
@@ -72,7 +70,6 @@ Custom property | Description | Default
       overflow: hidden;
       overflow-y: auto;
       max-height: 20em;
-      /*margin-top: 60px;*/
       margin-left: 20px;
     }
     </style>
@@ -92,6 +89,12 @@ Custom property | Description | Default
   Polymer({
     is: 'raml-request-headers-editor',
     behaviors: [ArcBehaviors.HeadersParserBehavior],
+    /**
+     * Fired when the content type header has been set / updated.
+     *
+     * @event content-type-changed
+     * @param {String} value New Content type.
+     */
     properties: {
       /**
        * A HTTP headers message part as defined in HTTP spec.
