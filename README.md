@@ -16,3 +16,9 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--raml-request-headers-editor` | Mixin applied to the element | `{}`
 
+
+
+### Events
+| Name | Description | Params |
+| --- | --- | --- |
+| content-type-changed | Fired when the content type header has been set / updated. | value **String** - New Content type. |
