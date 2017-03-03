@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/advanced-rest-client/raml-request-headers-editor.svg?branch=master)](https://travis-ci.org/advanced-rest-client/raml-request-headers-editor)  
+[![Build Status](https://travis-ci.org/advanced-rest-client/raml-request-headers-editor.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/raml-request-headers-editor)  
 
 # raml-request-headers-editor
 
