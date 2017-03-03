@@ -13,18 +13,17 @@ the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../iron-media-query/iron-media-query.html">
-<link rel="import" href="../paper-tabs/paper-tab.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../headers-parser-behavior/headers-parser-behavior.html">
-<link rel="import" href="../vertical-tabs/vertical-tabs.html">
 <link rel="import" href="../raml-headers-form/raml-headers-form.html">
 <link rel="import" href="../code-mirror/code-mirror.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../arc-icons/arc-icons.html">
 <!-- CodeMirror autocomplete -->
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
-
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="cm-arc-styles.html">
 <link rel="import" href="cm-modules-import.html">
 <!--
@@ -72,18 +71,35 @@ Custom property | Description | Default
       max-height: 20em;
       margin-left: 20px;
     }
+
+    .editor-actions {
+      padding: 0 8px;
+    }
+
+    #copyContainer {
+      margin: 0;
+      padding: 0;
+    }
+
+    paper-icon-button[active] {
+      background-color: #E0E0E0;
+      border-radius: 50%;
+    }
     </style>
-    <iron-media-query query="(max-width: [[narrowWidth]])" query-matches="{{narrow}}"></iron-media-query>
     <div class="content">
-      <vertical-tabs selected="{{selected}}">
-        <paper-tab>Headers form</paper-tab>
-        <paper-tab>Raw headers</paper-tab>
-        <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler">
-          <raml-headers-form value="{{value}}" narrow="[[narrow]]" narrow-width="[[narrowWidth]]" raml-headers="[[ramlHeaders]]"></raml-headers-form>
-          <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
-        </iron-pages>
-      </vertical-tabs>
+      <div class="editor-actions">
+        <paper-icon-button icon="arc:content-copy" id="copyButton" on-tap="_copyToClipboard"></paper-icon-button>
+        <paper-icon-button icon="arc:mode-edit" id="editMode" toggles active="{{sourceMode}}"></paper-icon-button>
+
+        <paper-tooltip for="copyButton">Copy headers value to clipboard</paper-tooltip>
+        <paper-tooltip for="editMode">Toggle source edit mode</paper-tooltip>
+      </div>
+      <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler" selected-attribute="active">
+        <raml-headers-form value="{{value}}" narrow="[[narrow]]" narrow-width="[[narrowWidth]]" raml-headers="[[ramlHeaders]]"></raml-headers-form>
+        <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
+      </iron-pages>
     </div>
+    <p id="copyContainer"></p>
   </template>
   <script>
   Polymer({
@@ -136,10 +152,15 @@ Custom property | Description | Default
       narrowWidth: {
         type: String,
         value: '768px'
-      }
+      },
+      // When set to true then the source edit mode is enabled
+      sourceMode: Boolean
     },
 
-    observers: ['valueChanged(value)'],
+    observers: [
+      'valueChanged(value)',
+      '_sourceModeChanged(sourceMode)'
+    ],
 
     ready: function() {
       var cm = this.$$('code-mirror');
@@ -150,6 +171,14 @@ Custom property | Description | Default
           });
         }.bind(this)
       });
+    },
+
+    _sourceModeChanged: function(sourceMode) {
+      if (sourceMode) {
+        this.set('selected', 1);
+      } else {
+        this.set('selected', 0);
+      }
     },
 
     /**
@@ -223,7 +252,35 @@ Custom property | Description | Default
       if (name === 'CODE-MIRROR') {
         e.detail.item.editor.refresh();
       }
-    }
+    },
+
+    _copyToClipboard: function() {
+      // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
+      this.$.copyContainer.innerText = this.value;
+      var snipRange = document.createRange();
+      snipRange.selectNodeContents(this.$.copyContainer);
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(snipRange);
+      var result = false;
+      try {
+        result = document.execCommand('copy');
+        this.$.copyButton.icon = 'arc:done';
+      } catch (err) {
+        // Copy command is not available
+        Polymer.Base._error(err);
+        this.$.copyButton.icon = 'arc:error';
+      }
+      this.$.copyContainer.innerText = '';
+      // Return to the copy button after a second.
+      setTimeout(this._resetCopyButtonState.bind(this), 1000);
+      selection.removeAllRanges();
+      return result;
+    },
+
+    _resetCopyButtonState: function() {
+      this.$.copyButton.icon = 'arc:content-copy';
+    },
   });
   </script>
 </dom-module>
