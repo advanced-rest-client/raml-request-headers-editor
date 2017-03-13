@@ -59,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template is="dom-if" if="[[isMethod]]">
           <raml-request-headers-editor raml-headers="[[selected.headers]]" value="{{headers}}" content-type="{{contentType}}" is-payload></raml-request-headers-editor>
           <h4>Current headers value</h4>
-          <output>[[value]]</output>
+          <output>[[headers]]</output>
           <h4>Current content type</h4>
           <output>[[contentType]]</output>
         </template>
