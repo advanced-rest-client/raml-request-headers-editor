@@ -1,3 +1,23 @@
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.1...v0.2.3) (2017-03-13)
+
+
+### Fix
+
+* Fixes #1 - value doesn't change when using source editor ([dad8f2a737a3084716d0aa541d6612b6d5a50899](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/dad8f2a737a3084716d0aa541d6612b6d5a50899)), closes [#1](https://github.com/advanced-rest-client/raml-request-headers-editor/issues/1)
+
+### New
+
+* Added Safari 10 to tested browsers list ([a93b7ad0ac2743bcd90e7eec8860ea4e9182ef20](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/a93b7ad0ac2743bcd90e7eec8860ea4e9182ef20))
+
+
+
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.1...v0.2.2) (2017-03-13)
+
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.1.4...v0.2.1) (2017-03-03)
 
