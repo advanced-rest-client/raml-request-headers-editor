@@ -18,10 +18,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../arc-demo-helpers/raml-demo-page.html">
   <link rel="import" href="../../font-roboto/roboto.html">
+  <link rel="import" href="../../paper-input/paper-textarea.html">
+  <link rel="import" href="../../paper-button/paper-button.html">
   <link rel="import" href="../raml-request-headers-editor.html">
-
   <style is="custom-style">
-  :root {
+   :root {
     --raml-headers-form: {
       padding: 16px;
     }
@@ -57,16 +58,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>The raml-headers-form element</h1>
       <div main>
         <template is="dom-if" if="[[isMethod]]">
-          <raml-request-headers-editor raml-headers="[[selected.headers]]" value="{{headers}}" content-type="{{contentType}}" is-payload></raml-request-headers-editor>
+          <raml-request-headers-editor raml-headers="[[selected.headers]]" value="{{headers}}" content-type="{{contentType}}"></raml-request-headers-editor>
           <h4>Current headers value</h4>
           <output>[[headers]]</output>
           <h4>Current content type</h4>
           <output>[[contentType]]</output>
+
+          <div class="change-event-form">
+            <h3>Update editor value with custom event.</h3>
+            <paper-textarea label="Event headers" value="{{eventHeaders}}"></paper-textarea>
+            <paper-button on-tap="fireEvent">Fire event</paper-button>
+          </div>
+          <div class="change-event-form">
+            <h3>Update header value with custom event.</h3>
+            <paper-input label="Header name" value="{{eventHeaderName}}"></paper-input>
+            <paper-input label="Header value" value="{{eventHeaderValue}}"></paper-input>
+            <paper-button on-tap="fireSingleEvent">Fire event</paper-button>
+          </div>
         </template>
         <p hidden$="[[isMethod]]">Select a method</p>
-        </div>
+      </div>
     </raml-demo-page>
   </template>
+  <script>
+  (function(app) {
+    app.eventHeaders = '';
+    app.eventHeaderName = '';
+    app.eventHeaderValue = '';
+    app.fireEvent = function() {
+      app.fire('request-headers-changed', {
+        value: app.eventHeaders
+      });
+    };
+    app.fireSingleEvent = function() {
+      app.fire('request-header-changed', {
+        name: app.eventHeaderName,
+        value: app.eventHeaderValue
+      });
+    };
+  })(document.getElementById('app'));
+  </script>
 </body>
 
 </html>

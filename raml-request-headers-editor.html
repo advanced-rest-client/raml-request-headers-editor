@@ -34,6 +34,48 @@ the License.
 <raml-request-headers-editor></raml-request-headers-editor>
 ```
 
+## Events
+This element listens for the `request-headers-changed` and `request-header-changed` events.
+The first event when handled will replace current editor value. New value mast be set to a `value`
+property of the event's detail object.
+Second event, when handled, will update single header value if the header is on the list of append
+header if it is a new header. Event handler expects `name` and `value` properties to be set on event's
+detail object.
+
+### `request-headers-changed` example
+```
+var init = {
+  detail: {
+    value: 'Authorization: Basic base64 string'
+  },
+  bubbles: true,
+  cancelable: true
+};
+var event = new CustomEvent('request-headers-changed', init);
+document.dispatchEvent(event);
+```
+This event will set editor value to:
+```
+Authorization: Basic base64 string
+```
+
+### `request-header-changed` example
+```
+var init = {
+  detail: {
+    name: 'Authorization',
+    value: 'custom'
+  },
+  bubbles: true,
+  cancelable: true
+};
+var event = new CustomEvent('request-header-changed', init);
+document.dispatchEvent(event);
+```
+This event will update the Authorization header value to `custom`.
+
+If the event was canceled by calling `event.preventDefault()` then the value won't be updated.
+
 ### Styling
 `<raml-request-headers-editor>` provides the following custom properties and mixins for styling:
 
@@ -110,6 +152,12 @@ Custom property | Description | Default
      * @event content-type-changed
      * @param {String} value New Content type.
      */
+    /**
+     * Fired when the editor value change
+     *
+     * @event request-headers-changed
+     * @param {String} value Current editor value.
+     */
     properties: {
       /**
        * A HTTP headers message part as defined in HTTP spec.
@@ -120,16 +168,20 @@ Custom property | Description | Default
         type: String,
         notify: true
       },
-      // Currently selected tab.
+      // Currently selected editor. Can be raw (CodeMirror) (0) or form editor (1).
       selected: {
         type: Number,
         value: 0
       },
-
+      /**
+       * RAML headers definition.
+       */
       ramlHeaders: Object,
       /**
-       * A value of a Content-Type header.
-       * This can be changed externally and the editor will reflect the change.
+       * Value of a Content-Type header.
+       * When this value change then editor update the value for the content type. However,
+       * to change a single header value, please, use `request-headers-changed` event with `name`
+       * and `value` properties set on the detail object.
        *
        * @type {Stirng}
        */
@@ -157,9 +209,19 @@ Custom property | Description | Default
     },
 
     observers: [
-      'valueChanged(value)',
+      '_valueChanged(value)',
       '_sourceModeChanged(sourceMode)'
     ],
+
+    attached: function() {
+      this.listen(window, 'request-headers-changed', '_headersChangedHandler');
+      this.listen(window, 'request-header-changed', '_headerChangedHandler');
+    },
+
+    detached: function() {
+      this.unlisten(window, 'request-headers-changed', '_headersChangedHandler');
+      this.unlisten(window, 'request-header-changed', '_headerChangedHandler');
+    },
 
     ready: function() {
       var cm = this.$$('code-mirror');
@@ -184,8 +246,13 @@ Custom property | Description | Default
      * Called by CodeMirror editor.
      * When something change n the headers list, detect content type header.
      */
-    valueChanged: function(value) {
+    _valueChanged: function(value) {
       this._detectContentType(value);
+      if (!this._cacncelChangeEvent) {
+        this.fire('request-headers-changed', {
+          value: value
+        });
+      }
     },
 
     _detectContentType: function(value) {
@@ -203,8 +270,8 @@ Custom property | Description | Default
       this.set('contentType', ct);
     },
 
-    _onContentTypeChanged: function() {
-      if (!this.isPayload || !this.contentType) {
+    _onContentTypeChanged: function(currentCt) {
+      if (!currentCt) {
         this.fire('content-type-changed', {
           'value': ''
         });
@@ -218,13 +285,13 @@ Custom property | Description | Default
           return item;
         }
         updated = true;
-        if (item.value === this.contentType) {
+        if (item.value === currentCt) {
           notChanged = true;
           return item;
         }
-        item.value = this.contentType;
+        item.value = currentCt;
         return item;
-      }.bind(this));
+      });
 
       if (notChanged) {
         return;
@@ -232,14 +299,14 @@ Custom property | Description | Default
       if (!updated) {
         arr.push({
           name: 'Content-Type',
-          value: this.contentType
+          value: currentCt
         });
       }
 
       var headers = this.headersToString(arr);
       this.set('value', headers);
       this.fire('content-type-changed', {
-        'value': this.contentType
+        'value': currentCt
       });
     },
 
@@ -280,6 +347,55 @@ Custom property | Description | Default
     _resetCopyButtonState: function() {
       this.$.copyButton.icon = 'arc:content-copy';
     },
+    /**
+     * Handler tor the `request-headers-changed` event.
+     * Updates the editor value to the value of the event detail object.
+     */
+    _headersChangedHandler: function(e) {
+      if (e.target === this) {
+        return;
+      }
+      if (e.defaultPrevented) {
+        return;
+      }
+      var value = e.detail.value;
+      this._cacncelChangeEvent = true;
+      this.set('value', value);
+      this._cacncelChangeEvent = false;
+    },
+    /**
+     * Handler for the `request-header-changed` event.
+     * It updates value for a single header.
+     */
+    _headerChangedHandler: function(e) {
+      if (e.defaultPrevented) {
+        return;
+      }
+      var name = e.detail.name;
+      if (!name) {
+        return console.warn('request-header-changed fired without the name.');
+      }
+      var value = e.detail.value;
+      var arr = this.headersToJSON(this.value);
+      var updated = false;
+      for (var i = 0, len = arr.length; i < len; i++) {
+        if (arr[i].name.toLowerCase() === name.toLowerCase()) {
+          arr[i].value = value;
+          updated = true;
+          break;
+        }
+      }
+      if (!updated) {
+        arr.push({
+          name: name,
+          value: value
+        });
+      }
+      var headers = this.headersToString(arr);
+      this._cacncelChangeEvent = true;
+      this.set('value', headers);
+      this._cacncelChangeEvent = false;
+    }
   });
   </script>
 </dom-module>
