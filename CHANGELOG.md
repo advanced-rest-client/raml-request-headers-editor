@@ -1,3 +1,13 @@
+<a name="0.2.5"></a>
+## [0.2.5](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.4...v0.2.5) (2017-03-27)
+
+
+### Update
+
+* Added event handler for request-headers-changed and request-header-changed events ([85e0efe9ef6b7f7a329632b85b65ee717a118093](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/85e0efe9ef6b7f7a329632b85b65ee717a118093))
+
+
+
 <a name="0.2.4"></a>
 ## [0.2.4](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.3...v0.2.4) (2017-03-13)
 
