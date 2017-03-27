@@ -41,8 +41,8 @@
     "test-fixture": "PolymerElements/test-fixture#^1.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
     "arc-demo-helpers": "advanced-rest-client/arc-demo-helpers#^1.0.5",
-    "raml-path-to-object": "advanced-rest-client/raml-path-to-object#^1.0.31",
-    "raml-path-selector": "advanced-rest-client/raml-path-selector#^1.0.3"
+    "paper-input": "PolymerElements/paper-input#^1.1.23",
+    "paper-button": "PolymerElements/paper-button#^1.0.14"
   },
   "ignore": [
     "**/.*",
@@ -52,5 +52,5 @@
     "test",
     "tasks"
   ],
-  "version": "0.2.4"
+  "version": "0.2.5"
 }
