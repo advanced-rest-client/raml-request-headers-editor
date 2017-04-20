@@ -49,6 +49,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     display: block;
     white-space: pre-wrap;
   }
+
+  div[main] {
+    background-color: #e5e5e5;
+    padding: 24px;
+  }
+
+  .element-content {
+    background-color: #fff;
+  }
   </style>
 </head>
 
@@ -58,7 +67,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <h1>The raml-headers-form element</h1>
       <div main>
         <template is="dom-if" if="[[isMethod]]">
-          <raml-request-headers-editor raml-headers="[[selected.headers]]" value="{{headers}}" content-type="{{contentType}}"></raml-request-headers-editor>
+          <div class="element-content">
+            <raml-request-headers-editor raml-headers="[[selected.headers]]" value="{{headers}}" content-type="{{contentType}}"></raml-request-headers-editor>
+          </div>
           <h4>Current headers value</h4>
           <output>[[headers]]</output>
           <h4>Current content type</h4>
