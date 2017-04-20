@@ -19,6 +19,8 @@ the License.
 <link rel="import" href="../code-mirror/code-mirror.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../anypoint-icons/anypoint-icons.html">
+
 <!-- CodeMirror autocomplete -->
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
@@ -124,14 +126,14 @@ Custom property | Description | Default
     }
 
     paper-icon-button[active] {
-      background-color: #E0E0E0;
+      background-color: var(--request-headers-editor-active-button-background-color, var(--button-active-background-color, #E0E0E0));
       border-radius: 50%;
     }
     </style>
     <div class="content">
       <div class="editor-actions">
-        <paper-icon-button icon="arc:content-copy" id="copyButton" on-tap="_copyToClipboard"></paper-icon-button>
-        <paper-icon-button icon="arc:code" id="editMode" toggles active="{{sourceMode}}"></paper-icon-button>
+        <paper-icon-button icon="anypoint:copy-to-clipboard" id="copyButton" on-tap="_copyToClipboard"></paper-icon-button>
+        <paper-icon-button icon="anypoint:code" id="editMode" toggles active="{{sourceMode}}"></paper-icon-button>
         <paper-tooltip for="copyButton">Copy headers value to clipboard</paper-tooltip>
         <paper-tooltip for="editMode">Toggle source edit mode</paper-tooltip>
       </div>
