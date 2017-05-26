@@ -116,6 +116,7 @@ Custom property | Description | Default
 
     .editor-actions {
       padding: 0 8px;
+      @apply(--raml-body-editor-actions-container);
     }
 
     #copyContainer {
@@ -124,8 +125,9 @@ Custom property | Description | Default
     }
 
     paper-icon-button[active] {
-      background-color: #E0E0E0;
+      background-color: var(--raml-body-editor-panel-button-active, #e0e0e0);
       border-radius: 50%;
+      @apply(--raml-body-editor-panel-button);
     }
     </style>
     <div class="content">
