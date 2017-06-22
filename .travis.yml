@@ -5,16 +5,19 @@ node_js: stable
 before_script:
 - npm install --silent bower polymer-cli
 - bower install --silent
+addons:
+  sauce_connect: true
 script:
-- ./node_modules/.bin/polymer lint raml-request-headers-editor.html
-# - ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-request-headers-editor:${TRAVIS_BRANCH}" --build-number=${TRAVIS_BUILD_NUMBER}
-cache:
-  directories:
-  - bower_components
-  - node_modules
+- npm run lint
+- ./node_modules/.bin/polymer test --plugin sauce --job-name "raml-request-headers-editor:${TRAVIS_BRANCH}"
+  --build-number=${TRAVIS_BUILD_NUMBER}
 branches:
   only:
-    - stage
-    - develop
+  - stage
+  - develop
 after_success:
-  - node tasks/ci.js
+- node tasks/ci.js
+env:
+  global:
+  - secure: qWQzxw1SG9EwnZokQ4nI4699RGcDYlg5yjUFKTyBp536D4/20lKdXK3g21WOwhrfI136f3MYFwsdR6deHve6c9Fj6V7fipbfGQyF91gQNl/0LvlS7TCuSwoaEXpKWpY3ExEw4RwNOpoNdUNeKqmlwwsXFF0yAWMDAKCE/KsUBFmR1gajZCOlamjDfs3JCZW8cJAkQyNg/VES5maty2K0hXF3Y+O9HUpXOT5H1tJxANBmHw567GhWuutcbIOx7vJsahG/BOXvYD3a1uZ2Yw3TzysXKXPq47FHfCe8QG0pj7qAnjO/ZtDFPwLSHkpWgMxKrukF119SYhJ958WNKJ5avwa7Xy7wWkV5E1qLRhGzaJR55oaV1zrGc+k3ubGacDfFmw6kGalPhNKWJ8KEGWlf+YvatksQv2vKxcjd3+2SaLj+8Xjz6MFo3bCZwXflfH+b+tl7t9XcBduJ+ggcfAR4mSVTiISydbRBSL/HYPCptAOr7czfQzIJubGMfyrHTiiM6CyNcH9yoTfyoi4R/IH4SvMN/BH+kwxQVn/IgeTriKuwf396asgAxzztRj7OQmVbNLUQeKkmyh9vmJmpjjcajDIg/lMSCJjXGAa46EKpumRbgTnINbO5sbYWCuGNR9+b1lm/+k39q66uH/oGcj7hUquRQwmV6eU7ZIGnbnDz+9w=
+  - secure: c9ZG8ZrWcjjIu0aAGYh6WPt0CnjCG6ORRPmx1kb2iEgkylxtxtX77nzc1HHZEzb1PQZ/fLLsDFfCW2z1N9/3wXr6zdbeo9iDrINILOTu99NIcFEbd8JrSXRVG6fm0ffbkhmu0Rz7ayxVMxoDGTMW9rlO0ca7KLLdLzHPwgbwrrEynyPb+VUwsEtOkpJogx7BoWJMESECAp1/uGRB4/nVhNf4EcpP/tAjl7fwaO/oyOGNO932P1e6GBMNCdbgilekqHOmkedsPAxRoVIE9LicMxSZZBtoxT6aDJTm0jH2K8liLtCv7EYbFrFQoQIgYJvUmTfA2ytP+qbpCS2ZDMglI7swr9jICCp8y2N3wgphbn1q+S68jeCsJFAXOfUwFcCECrRDM12IgdHCZVEupDeY7mubrTKpZKSDtbb23/BTWa9glAT9xvTOIAkWU+jroTYdYa1yLx6LAW8mJcMuwgC6lv2pYFh+IEwdu8ZOOaObjEumbBydM0DO3XBn+jENIgZBHvpVwxzowjTai6Seza7ZqOnQPsyt610LDz5V4/4b8CWYy/yiBXzW2cQ6N7U0F1z6QbGInQYWIp/FEyYmdMlalkWzaEutcoPUVghm7ut8ZwCVEvvyQuDKPRYYA9PrefeWVjksm/xm8Mdod/ASaEHHKkzNv7SIaiTHuRvvImJetNQ=
