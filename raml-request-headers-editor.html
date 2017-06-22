@@ -141,7 +141,7 @@ Custom property | Description | Default
         <paper-tooltip for="editMode">Toggle source edit mode</paper-tooltip>
       </div>
       <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler" selected-attribute="active">
-        <raml-headers-form value="{{value}}" narrow="[[narrow]]" narrow-width="[[narrowWidth]]" raml-headers="[[ramlHeaders]]"></raml-headers-form>
+        <raml-headers-form value="{{value}}" raml-headers="[[ramlHeaders]]"></raml-headers-form>
         <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
       </iron-pages>
     </div>
