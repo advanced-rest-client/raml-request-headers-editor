@@ -26,7 +26,7 @@ the License.
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../paper-tooltip/paper-tooltip.html">
-<link rel="import" href="cm-arc-styles.html">
+<link rel="import" href="../code-mirror-styles/cm-arc-styles.html">
 <link rel="import" href="cm-modules-import.html">
 <!--
 `<raml-request-headers-editor>` A headers editor to be used with the RAML defined requests
@@ -84,6 +84,9 @@ If the event was canceled by calling `event.preventDefault()` then the value won
 Custom property | Description | Default
 ----------------|-------------|----------
 `--raml-request-headers-editor` | Mixin applied to the element | `{}`
+`--raml-body-editor-actions-container` | Mixin applied to the content actions container | `{}`
+`--raml-body-editor-panel-button-active-background-color` | Background color of active paper icon button in content actions list | `#e0e0e0`
+`--raml-body-editor-panel-button-active` | Mixin applied to active icon buttom | `{}`
 
 @group RAML Elements
 @element raml-request-headers-editor
@@ -118,6 +121,7 @@ Custom property | Description | Default
 
     .editor-actions {
       padding: 0 8px;
+      @apply(--raml-body-editor-actions-container);
     }
 
     #copyContainer {
@@ -128,6 +132,7 @@ Custom property | Description | Default
     paper-icon-button[active] {
       background-color: var(--request-headers-editor-active-button-background-color, var(--button-active-background-color, #E0E0E0));
       border-radius: 50%;
+      @apply(--raml-body-editor-panel-button-active);
     }
     </style>
     <div class="content">
@@ -138,7 +143,7 @@ Custom property | Description | Default
         <paper-tooltip for="editMode">Toggle source edit mode</paper-tooltip>
       </div>
       <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler" selected-attribute="active">
-        <raml-headers-form value="{{value}}" narrow="[[narrow]]" narrow-width="[[narrowWidth]]" raml-headers="[[ramlHeaders]]"></raml-headers-form>
+        <raml-headers-form value="{{value}}" raml-headers="[[ramlHeaders]]"></raml-headers-form>
         <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
       </iron-pages>
     </div>
