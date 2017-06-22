@@ -1,3 +1,19 @@
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.8...v0.2.9) (2017-06-22)
+
+
+### Update
+
+* Removed properties not supported on raml-headers-form element. ([673023bbf99bfdfac47b48eb36700d3f03884161](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/673023bbf99bfdfac47b48eb36700d3f03884161))
+* Removed sudo from Travis command: ([e3bfcc102dfd4daa724f9fc6fc9012cf1ced22f6](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/e3bfcc102dfd4daa724f9fc6fc9012cf1ced22f6))
+* Updated dependencies versions. Added dependency to the CodeMirror styles element. ([3179ec0ca8c93b4d20f8d95c4caee11b2eb6a879](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/3179ec0ca8c93b4d20f8d95c4caee11b2eb6a879))
+* Updated styles declaration and documentation for styles. ([7b517e2926ec386c3fa3e365dddc95dd86e46374](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/7b517e2926ec386c3fa3e365dddc95dd86e46374))
+* Updated test configuration for WCT. Local is now disabled by default. ([e2525fb60d3e254e6cdb40c035e4992fb13e64ab](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/e2525fb60d3e254e6cdb40c035e4992fb13e64ab))
+* Updated Travis configuration to perform tests. ([2b6e857b8dcc8aa7103c62880b4de643b06ecede](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/2b6e857b8dcc8aa7103c62880b4de643b06ecede))
+* Updated version of the Polymer CLI and updated commands for linter and test. ([990654a35647a6675d5e956e6e1f88df64670042](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/990654a35647a6675d5e956e6e1f88df64670042))
+
+
+
 <a name="0.2.8"></a>
 ## [0.2.8](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.7...v0.2.8) (2017-05-26)
 

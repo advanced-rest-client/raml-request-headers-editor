@@ -57,6 +57,9 @@ If the event was canceled by calling `event.preventDefault()` then the value won
 Custom property | Description | Default
 ----------------|-------------|----------
 `--raml-request-headers-editor` | Mixin applied to the element | `{}`
+`--raml-body-editor-actions-container` | Mixin applied to the content actions container | `{}`
+`--raml-body-editor-panel-button-active-background-color` | Background color of active paper icon button in content actions list | `#e0e0e0`
+`--raml-body-editor-panel-button-active` | Mixin applied to active icon buttom | `{}`
 
 
 
