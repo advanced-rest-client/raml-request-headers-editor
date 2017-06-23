@@ -20,7 +20,6 @@
     "polymer": "Polymer/polymer#^1.9.2",
     "headers-parser-behavior": "advanced-rest-client/headers-parser-behavior#^0.1.1",
     "code-mirror": "advanced-rest-client/code-mirror#^1.0.18",
-    "vertical-tabs": "advanced-rest-client/vertical-tabs#^1.0.1",
     "raml-headers-form": "advanced-rest-client/raml-headers-form#^0.2.0",
     "paper-tabs": "PolymerElements/paper-tabs#^1.7.0",
     "iron-pages": "PolymerElements/iron-pages#^1.0.8",
@@ -53,5 +52,5 @@
     "test",
     "tasks"
   ],
-  "version": "0.2.10"
+  "version": "0.2.11"
 }
