@@ -1,7 +1,7 @@
 {
   "name": "raml-request-headers-editor",
   "description": "A headers editor to be used with the RAML defined requests",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
   ],
