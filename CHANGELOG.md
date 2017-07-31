@@ -1,3 +1,17 @@
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.12...0.3.1) (2017-07-31)
+
+
+### Breaking
+
+* Updated headers editor form element with breaking changes in styling. ([b5bc2bec34a905c0c6ff29ccea841c071c370a17](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/b5bc2bec34a905c0c6ff29ccea841c071c370a17))
+
+### Update
+
+* Updated Travis configuration ([55c1d7ea2992a4313e7288fe932422685650804a](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/55c1d7ea2992a4313e7288fe932422685650804a))
+
+
+
 <a name="0.2.12"></a>
 ## [0.2.12](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.2.11...v0.2.12) (2017-06-23)
 
