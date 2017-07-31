@@ -1,14 +1,17 @@
 {
   "name": "raml-request-headers-editor",
   "description": "A headers editor to be used with the RAML defined requests",
+  "version": "0.3.0",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
   ],
   "keywords": [
     "web-components",
-    "polymer"
+    "polymer",
+    "raml",
+    "headers",
+    "editor"
   ],
-  "private": true,
   "main": [
     "raml-request-headers-editor.html"
   ],
@@ -20,7 +23,7 @@
     "polymer": "Polymer/polymer#^1.9.2",
     "headers-parser-behavior": "advanced-rest-client/headers-parser-behavior#^0.1.1",
     "code-mirror": "advanced-rest-client/code-mirror#^1.0.18",
-    "raml-headers-form": "advanced-rest-client/raml-headers-form#^0.2.0",
+    "raml-headers-form": "advanced-rest-client/raml-headers-form#^0.3.0",
     "paper-tabs": "PolymerElements/paper-tabs#^1.7.0",
     "iron-pages": "PolymerElements/iron-pages#^1.0.8",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.1",
@@ -30,7 +33,8 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#^1.1.4",
     "arc-icons": "advanced-rest-client/arc-icons#^1.0.14",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.3",
-    "code-mirror-styles": "advanced-rest-client/code-mirror-styles#^0.1.1"
+    "code-mirror-styles": "advanced-rest-client/code-mirror-styles#^0.1.1",
+    "clipboard-copy": "advanced-rest-client/clipboard-copy#^0.1.1"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#1.0.0",
@@ -46,11 +50,9 @@
   },
   "ignore": [
     "**/.*",
-    "dependencyci.yml",
     "node_modules",
     "bower_components",
     "test",
     "tasks"
-  ],
-  "version": "0.2.12"
+  ]
 }
