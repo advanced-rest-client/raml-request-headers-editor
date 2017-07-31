@@ -19,6 +19,7 @@ the License.
 <link rel="import" href="../code-mirror/code-mirror.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
+<link rel="import" href="../clipboard-copy/clipboard-copy.html">
 <!-- CodeMirror autocomplete -->
 <link rel="import" href="../paper-material/paper-material.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
@@ -102,10 +103,6 @@ Custom property | Description | Default
       --code-mirror-editor: {
         z-index: 0;
       }
-
-      --paper-autocomplete: {
-        top: 32px;
-      }
     }
     .CodeMirror-hints {
       position: absolute;
@@ -145,7 +142,7 @@ Custom property | Description | Default
         <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
       </iron-pages>
     </div>
-    <p id="copyContainer"></p>
+    <clipboard-copy content="[[value]]"></clipboard-copy>
   </template>
   <script>
   Polymer({
@@ -325,32 +322,24 @@ Custom property | Description | Default
       }
     },
 
-    _copyToClipboard: function() {
-      // From https://github.com/google/material-design-lite/blob/master/docs/_assets/snippets.js
-      this.$.copyContainer.innerText = this.value;
-      var snipRange = document.createRange();
-      snipRange.selectNodeContents(this.$.copyContainer);
-      var selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(snipRange);
-      var result = false;
-      try {
-        result = document.execCommand('copy');
-        this.$.copyButton.icon = 'arc:done';
-      } catch (err) {
-        // Copy command is not available
-        Polymer.Base._error(err);
-        this.$.copyButton.icon = 'arc:error';
+    /**
+     * Coppies current response text value to clipboard.
+     */
+    _copyToClipboard: function(e) {
+      var button = Polymer.dom(e).localTarget;
+      var copy = this.$$('clipboard-copy');
+      if (copy.copy()) {
+        button.icon = 'arc:done';
+      } else {
+        button.icon = 'arc:error';
       }
-      this.$.copyContainer.innerText = '';
-      // Return to the copy button after a second.
-      setTimeout(this._resetCopyButtonState.bind(this), 1000);
-      selection.removeAllRanges();
-      return result;
+      this.async(function() {
+        this._resetCopyButtonState(button);
+      }, 1000);
     },
 
-    _resetCopyButtonState: function() {
-      this.$.copyButton.icon = 'arc:content-copy';
+    _resetCopyButtonState: function(button) {
+      button.icon = 'arc:content-copy';
     },
     /**
      * Handler tor the `request-headers-changed` event.
