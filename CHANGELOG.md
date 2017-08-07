@@ -1,3 +1,13 @@
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.3.2...0.3.3) (2017-08-07)
+
+
+### Fix
+
+* Fixes #3 - narrow attribute is now connected to the editor ([7e435a3f3bd6f92517b69139ced7948cc2cb2339](https://github.com/advanced-rest-client/raml-request-headers-editor/commit/7e435a3f3bd6f92517b69139ced7948cc2cb2339)), closes [#3](https://github.com/advanced-rest-client/raml-request-headers-editor/issues/3)
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/advanced-rest-client/raml-request-headers-editor/compare/0.3.1...0.3.2) (2017-07-31)
 

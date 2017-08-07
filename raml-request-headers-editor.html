@@ -138,7 +138,7 @@ Custom property | Description | Default
         <paper-tooltip for="editMode">Toggle source edit mode</paper-tooltip>
       </div>
       <iron-pages content selected="{{selected}}" on-iron-select="_tabChangedHandler" selected-attribute="active">
-        <raml-headers-form value="{{value}}" raml-headers="[[ramlHeaders]]"></raml-headers-form>
+        <raml-headers-form value="{{value}}" raml-headers="[[ramlHeaders]]" narrow="[[narrow]]"></raml-headers-form>
         <code-mirror mode="http-headers" theme="cm-arc" value="{{value}}"></code-mirror>
       </iron-pages>
     </div>
@@ -200,11 +200,6 @@ Custom property | Description | Default
         type: Boolean,
         value: false,
         notify: true
-      },
-      // A widith below which the `narrow` property will be set to true.
-      narrowWidth: {
-        type: String,
-        value: '768px'
       },
       // When set to true then the source edit mode is enabled
       sourceMode: Boolean
