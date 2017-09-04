@@ -99,6 +99,11 @@ Custom property | Description | Default
       position: relative;
 
       @apply(--raml-request-headers-editor);
+       
+       --paper-autocomplete: {
+         top: 32px;
+         @apply(--raml-request-headers-autocomplete);
+       }
 
       --code-mirror-editor: {
         z-index: 0;
